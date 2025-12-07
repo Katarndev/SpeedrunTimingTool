@@ -1,0 +1,23 @@
+{
+  "Timer1": {
+    "Min": 40,
+    "Max": 60,
+    "HardMax": 80
+  },
+  "Timer2": {
+    "Min": 1060,
+    "Max": 1100,
+    "HardMax": 1500
+  },
+  "Timer3": {
+    "Min": 230,
+    "Max": 250,
+    "HardMax": 500
+  },
+  "Keys": {
+    "StartKey": 67,
+    "SplitKey": 27,
+    "EndKey": 69
+  },
+  "DarkMode": true
+}
