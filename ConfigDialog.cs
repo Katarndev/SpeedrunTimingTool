@@ -211,34 +211,24 @@ namespace MouseDroid
 
         /// <summary>
         /// Handles key capture for binding configuration:
-        /// - Ignores modifier keys when pressed alone
-        /// - Prevents using Escape key as it's reserved for dialog cancellation
-        /// - Updates key binding text box with captured key
+        /// - Updates key binding text box with captured key, including modifier and Escape keys
         /// </summary>
+        private string FormatCapturedKey(Keys key)
+        {
+            if (key == Keys.LShiftKey || key == Keys.RShiftKey)
+                return Keys.ShiftKey.ToString();
+            if (key == Keys.LControlKey || key == Keys.RControlKey)
+                return Keys.ControlKey.ToString();
+            if (key == Keys.LMenu || key == Keys.RMenu)
+                return Keys.Menu.ToString();
+            return key.ToString();
+        }
+
         private void ConfigDialog_KeyDown(object? sender, KeyEventArgs e)
         {
             if (activeKeyBox == null) return;
 
-
-            if (e.KeyCode == Keys.ShiftKey || e.KeyCode == Keys.ControlKey || 
-                e.KeyCode == Keys.Menu || e.KeyCode == Keys.None)
-            {
-                return;
-            }
-
-
-            if (e.KeyCode == Keys.Escape)
-            {
-                activeKeyBox.Text = activeKeyBox == startKeyBox ? Keys.C.ToString() :
-                                  activeKeyBox == splitKeyBox ? Keys.Escape.ToString() :
-                                  Keys.E.ToString();
-                activeKeyBox.BackColor = SystemColors.Window;
-                activeKeyBox = null;
-                e.Handled = true;
-                return;
-            }
-
-            activeKeyBox.Text = e.KeyCode.ToString();
+            activeKeyBox.Text = FormatCapturedKey(e.KeyCode);
             activeKeyBox.BackColor = SystemColors.Window;
             activeKeyBox = null;
             e.Handled = true;

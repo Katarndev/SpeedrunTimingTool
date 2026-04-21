@@ -328,8 +328,21 @@ namespace MouseDroid
         /// 
         /// Each timer tracks elapsed time from the end of the previous timer
         /// </summary>
+        private Keys NormalizeKeyForComparison(Keys key)
+        {
+            if (key == Keys.LShiftKey || key == Keys.RShiftKey)
+                return Keys.ShiftKey;
+            if (key == Keys.LControlKey || key == Keys.RControlKey)
+                return Keys.ControlKey;
+            if (key == Keys.LMenu || key == Keys.RMenu)
+                return Keys.Menu;
+            return key;
+        }
+
         private void ProcessKey(IntPtr wParam, Keys key)
         {
+            key = NormalizeKeyForComparison(key);
+
             if (wParam == (IntPtr)WM_KEYDOWN)
             {
                 if (key == config.Keys.StartKey)
